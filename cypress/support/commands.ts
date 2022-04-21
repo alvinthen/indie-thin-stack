@@ -1,4 +1,4 @@
-import faker from "@faker-js/faker";
+import faker from '@faker-js/faker';
 
 declare global {
   namespace Cypress {
@@ -31,45 +31,45 @@ declare global {
 }
 
 function login({
-  email = faker.internet.email(undefined, undefined, "example.com"),
+  email = faker.internet.email(undefined, undefined, 'example.com'),
 }: {
   email?: string;
 } = {}) {
-  cy.then(() => ({ email })).as("user");
+  cy.then(() => ({ email })).as('user');
   cy.exec(
-    `yarn ts-node --require tsconfig-paths/register ./cypress/support/create-user.ts "${email}"`
+    `yarn ts-node --require tsconfig-paths/register ./cypress/support/create-user.ts "${email}"`,
   ).then(({ stdout }) => {
     const cookieValue = stdout
-      .replace(/.*<cookie>(?<cookieValue>.*)<\/cookie>.*/s, "$<cookieValue>")
+      .replace(/.*<cookie>(?<cookieValue>.*)<\/cookie>.*/s, '$<cookieValue>')
       .trim();
-    cy.setCookie("__session", cookieValue);
+    cy.setCookie('__session', cookieValue);
   });
-  return cy.get("@user");
+  return cy.get('@user');
 }
 
 function cleanupUser({ email }: { email?: string } = {}) {
   if (email) {
     deleteUserByEmail(email);
   } else {
-    cy.get("@user").then((user) => {
+    cy.get('@user').then((user) => {
       const email = (user as { email?: string }).email;
       if (email) {
         deleteUserByEmail(email);
       }
     });
   }
-  cy.clearCookie("__session");
+  cy.clearCookie('__session');
 }
 
 function deleteUserByEmail(email: string) {
   cy.exec(
-    `yarn ts-node --require tsconfig-paths/register ./cypress/support/delete-user.ts "${email}"`
+    `yarn ts-node --require tsconfig-paths/register ./cypress/support/delete-user.ts "${email}"`,
   );
-  cy.clearCookie("__session");
+  cy.clearCookie('__session');
 }
 
-Cypress.Commands.add("login", login);
-Cypress.Commands.add("cleanupUser", cleanupUser);
+Cypress.Commands.add('login', login);
+Cypress.Commands.add('cleanupUser', cleanupUser);
 
 /*
 eslint

@@ -17,13 +17,12 @@
     "start": "remix-serve build",
     "start:mocks": "binode --require ./mocks -- @remix-run/serve:remix-serve build",
     "test": "vitest",
-    "test:e2e:dev": "start-server-and-test dev http://localhost:3000 \"cypress open\"",
+    "test:e2e:dev": "start-server-and-test \"yarn dev\" http://localhost:3000 \"yarn cypress open\"",
     "pretest:e2e:run": "yarn build",
     "test:e2e:run": "cross-env PORT=8811 start-server-and-test \"yarn start:mocks\" http://localhost:8811 \"yarn cypress run\"",
     "typecheck": "tsc -b && tsc -b cypress",
     "validate": "concurrently \"yarn:test --run\" yarn:lint yarn:typecheck yarn:test:e2e:run"
   },
-  "prettier": {},
   "eslintIgnore": [
     "/node_modules",
     "/build",
