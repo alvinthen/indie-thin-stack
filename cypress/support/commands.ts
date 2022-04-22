@@ -36,14 +36,7 @@ function login({
   email?: string;
 } = {}) {
   cy.then(() => ({ email })).as('user');
-  cy.exec(
-    `yarn ts-node --require tsconfig-paths/register ./cypress/support/create-user.ts "${email}"`,
-  ).then(({ stdout }) => {
-    const cookieValue = stdout
-      .replace(/.*<cookie>(?<cookieValue>.*)<\/cookie>.*/s, '$<cookieValue>')
-      .trim();
-    cy.setCookie('__session', cookieValue);
-  });
+  cy.request('POST', '/__tests/create-user', { email });
   return cy.get('@user');
 }
 

@@ -1,49 +1,55 @@
-import { prisma } from '~/db.server';
+import { API_BASE_URL } from '~/constants.server';
+import type { User } from './user.server';
 
-export function getNote({
+export type Note = {
+  id: string;
+  title: string;
+  body: string;
+  createdAt: Date;
+  updatedAt: Date;
+  user: User;
+  userId: String;
+};
+
+export async function getNote({
   id,
   userId,
 }: Pick<Note, 'id'> & {
   userId: User['id'];
 }) {
-  return prisma.note.findFirst({
-    where: { id, userId },
-  });
+  const response = await fetch(`${API_BASE_URL}/users/${userId}/notes/${id}`);
+  return response.json();
 }
 
-export function getNoteListItems({ userId }: { userId: User['id'] }) {
-  return prisma.note.findMany({
-    where: { userId },
-    select: { id: true, title: true },
-    orderBy: { updatedAt: 'desc' },
-  });
+export async function getNoteListItems({
+  userId,
+}: {
+  userId: User['id'];
+}): Promise<Note[]> {
+  const response = await fetch(`${API_BASE_URL}/users/${userId}/notes`);
+  return (await response.json()) as Note[];
 }
 
-export function createNote({
+export async function createNote({
   body,
   title,
   userId,
 }: Pick<Note, 'body' | 'title'> & {
   userId: User['id'];
 }) {
-  return prisma.note.create({
-    data: {
-      title,
-      body,
-      user: {
-        connect: {
-          id: userId,
-        },
-      },
-    },
+  const response = await fetch(`${API_BASE_URL}/users/${userId}/notes`, {
+    method: 'POST',
+    body: JSON.stringify({ body, title }),
   });
+  return response.json();
 }
 
-export function deleteNote({
+export async function deleteNote({
   id,
   userId,
 }: Pick<Note, 'id'> & { userId: User['id'] }) {
-  return prisma.note.deleteMany({
-    where: { id, userId },
+  const response = await fetch(`${API_BASE_URL}/users/${userId}/notes/${id}`, {
+    method: 'DELETE',
   });
+  return response.json();
 }

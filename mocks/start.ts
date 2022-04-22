@@ -1,8 +1,8 @@
 import { setupServer } from 'msw/node';
-
 import '~/utils';
+import { userHandlers } from './user.mock';
 
-const server = setupServer();
+const server = setupServer(...userHandlers);
 
 server.listen({ onUnhandledRequest: 'warn' });
 console.info('🔶 Mock server running');

@@ -19,7 +19,7 @@
     "test": "vitest",
     "test:e2e:dev": "start-server-and-test \"yarn dev\" http://localhost:3000 \"yarn cypress open\"",
     "pretest:e2e:run": "yarn build",
-    "test:e2e:run": "cross-env PORT=8811 start-server-and-test \"yarn start:mocks\" http://localhost:8811 \"yarn cypress run\"",
+    "test:e2e:run": "cross-env PORT=8811 start-server-and-test \"yarn dev\" http://localhost:8811 \"yarn cypress run\"",
     "typecheck": "tsc -b && tsc -b cypress",
     "validate": "concurrently \"yarn:test --run\" yarn:lint yarn:typecheck yarn:test:e2e:run"
   },
@@ -40,6 +40,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^6.1.1",
+    "@mswjs/data": "^0.10.0",
     "@remix-run/dev": "^1.4.1",
     "@remix-run/eslint-config": "^1.4.1",
     "@testing-library/cypress": "^8.0.2",
