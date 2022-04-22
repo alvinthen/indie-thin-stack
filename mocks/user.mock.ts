@@ -103,6 +103,20 @@ export const userHandlers: Array<
     return res(ctx.status(201), ctx.json(note));
   }),
 
+  rest.delete(`${API_BASE_URL}/users`, (req, res, ctx) => {
+    const { email } = req.body as { email: string };
+
+    invariant(typeof email === 'string');
+
+    db.user.delete({
+      where: {
+        email: { equals: email },
+      },
+    });
+
+    return res(ctx.status(204));
+  }),
+
   rest.delete(`${API_BASE_URL}/users/:id/notes/:noteId`, (req, res, ctx) => {
     const { noteId } = req.params;
 
