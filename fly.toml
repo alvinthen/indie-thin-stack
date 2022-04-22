@@ -1,4 +1,4 @@
-app = "indie-thin-stack-84b4"
+app = "indie-thin-stack-template"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = [ ]
