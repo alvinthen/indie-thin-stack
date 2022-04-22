@@ -1,5 +1,4 @@
 import faker from '@faker-js/faker';
-import { deleteUserByEmail } from '~/models/user.server';
 
 declare global {
   namespace Cypress {
@@ -43,12 +42,12 @@ function login({
 
 function cleanupUser({ email }: { email?: string } = {}) {
   if (email) {
-    deleteUserByEmail(email);
+    cy.request('POST', '/__tests/delete-user', { email });
   } else {
     cy.get('@user').then((user) => {
       const email = (user as { email?: string }).email;
       if (email) {
-        deleteUserByEmail(email);
+        cy.request('POST', '/__tests/delete-user', { email });
       }
     });
   }

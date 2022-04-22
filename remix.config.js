@@ -15,6 +15,10 @@ module.exports = {
         "__tests/create-user",
         path.join(__dirname, "cypress/support/test-routes/create-user.ts")
       );
+      route(
+        "__tests/delete-user",
+        path.join(__dirname, "cypress/support/test-routes/delete-user.ts")
+      );
     });
   },
 };
