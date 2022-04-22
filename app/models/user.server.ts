@@ -36,7 +36,7 @@ export async function deleteUserByEmail(email: User['email']) {
     method: 'DELETE',
     body: JSON.stringify({ email }),
   });
-  return response.json();
+  return response.ok;
 }
 
 export async function verifyLogin(email: User['email'], password: string) {

@@ -104,7 +104,9 @@ export const userHandlers: Array<
   }),
 
   rest.delete(`${API_BASE_URL}/users`, (req, res, ctx) => {
-    const { email } = req.body as { email: string };
+    const { email } = JSON.parse(req.body as string) as {
+      email: string;
+    };
 
     invariant(typeof email === 'string');
 
