@@ -1,17 +1,17 @@
-# Remix Indie Stack
+# Remix Indie Thin Stack
 
-![The Remix Indie Stack](https://repository-images.githubusercontent.com/465928257/a241fa49-bd4d-485a-a2a5-5cb8e4ee0abf)
+A thin Remix app without the data layer. Great for integrating with headless CMS
 
 Learn more about [Remix Stacks](https://remix.run/stacks).
 
 ```
-npx create-remix --template remix-run/indie-stack
+npx create-remix --template alvinthen/indie-thin-stack
 ```
 
 or
 
 ```
-yarn create remix --template remix-run/indie-stack
+yarn create remix --template alvinthen/indie-thin-stack
 ```
 
 ## What's in the stack
