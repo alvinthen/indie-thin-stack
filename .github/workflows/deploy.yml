@@ -26,8 +26,9 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: 🔬 Lint
-        run: lint
+        run: yarn lint
 
+  # Remove this, if you're not using Typescript
   typecheck:
     name: ʦ TypeScript
     runs-on: ubuntu-latest
@@ -47,7 +48,7 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: 🔎 Type check
-        run: yarn typecheck --if-present
+        run: yarn typecheck
 
   vitest:
     name: ⚡ Vitest
@@ -97,7 +98,7 @@ jobs:
       - name: 🌳 Cypress run
         uses: cypress-io/github-action@v3
         with:
-          start: yarn start:mocks
+          start: yarn dev:remix
           wait-on: 'http://localhost:8811'
         env:
           PORT: '8811'
@@ -105,7 +106,9 @@ jobs:
   build:
     name: 🐳 Build
     # only build/deploy main branch on pushes
-    if: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') && github.event_name == 'push' }}
+    # if: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') && github.event_name == 'push' }}
+    if: ${{ false }} # disable deployment for now
+
     runs-on: ubuntu-latest
     steps:
       - name: 🛑 Cancel Previous Runs
@@ -167,7 +170,7 @@ jobs:
     needs: [lint, typecheck, vitest, cypress, build]
     # only build/deploy main branch on pushes
     # if: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') && github.event_name == 'push' }}
-    if: ${{ false }} # disable for now
+    if: ${{ false }} # disable deployment for now
 
     steps:
       - name: 🛑 Cancel Previous Runs
