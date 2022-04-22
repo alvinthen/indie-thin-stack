@@ -69,8 +69,6 @@ async function main({ rootDirectory }) {
     fs.writeFile(PACKAGE_JSON_PATH, newPackageJson),
   ]);
 
-  execSync(`npm run setup`, { stdio: "inherit", cwd: rootDirectory });
-
   console.log(
     `Setup is complete. You're now ready to rock and roll 🤘
 
