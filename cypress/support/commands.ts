@@ -1,4 +1,5 @@
 import faker from '@faker-js/faker';
+import { deleteUserByEmail } from '~/models/user.server';
 
 declare global {
   namespace Cypress {
@@ -51,13 +52,6 @@ function cleanupUser({ email }: { email?: string } = {}) {
       }
     });
   }
-  cy.clearCookie('__session');
-}
-
-function deleteUserByEmail(email: string) {
-  cy.exec(
-    `yarn ts-node --require tsconfig-paths/register ./cypress/support/delete-user.ts "${email}"`,
-  );
   cy.clearCookie('__session');
 }
 
