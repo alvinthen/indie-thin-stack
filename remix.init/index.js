@@ -40,6 +40,7 @@ async function main({ rootDirectory }) {
       recursive: true,
     }),
     fs.rm(path.join(rootDirectory, ".github/PULL_REQUEST_TEMPLATE.md")),
+    fs.rm(path.join(rootDirectory, ".github/FUNDING.yml")),
   ]);
 
   const newEnv = env.replace(
