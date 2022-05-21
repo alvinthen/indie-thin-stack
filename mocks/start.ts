@@ -4,7 +4,7 @@ import { userHandlers } from './user.mock';
 
 const server = setupServer(...userHandlers);
 
-server.listen({ onUnhandledRequest: 'warn' });
+server.listen({ onUnhandledRequest: 'bypass' });
 console.info('🔶 Mock server running');
 
 process.once('SIGINT', () => server.close());
