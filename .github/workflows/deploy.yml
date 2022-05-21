@@ -6,6 +6,10 @@ on:
       - dev
   pull_request: {}
 
+permissions:
+  actions: write
+  contents: read
+
 jobs:
   lint:
     name: ⬣ ESLint
